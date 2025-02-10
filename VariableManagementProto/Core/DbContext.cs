@@ -9,11 +9,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Core
 {
-    internal class VariableDbContext : DbContext
+    public class VariableDbContext(DbContextOptions<VariableDbContext> options) : DbContext(options)
     {
         public DbSet<Variable> Variables { get; set; }
         public DbSet<Models.TypeDefinition> Types { get; set; }
-        public VariableDbContext(DbContextOptions<VariableDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,7 +22,6 @@ namespace Core
                                            .WithMany()
                                            .HasForeignKey(v => v.TypeId)
                                            .OnDelete(DeleteBehavior.Restrict);
-
         }
     }
 }
