@@ -1,2 +1,3 @@
-# variable_managment_proto
-Variable management prototype
+## Plan
+- I would implement two different models here: Type and Variable. Holding Type as own model, we can easily expand functionalities in future without needing to change essentially anything in variable model and we are much more flexible with types. With this implementation, we could have essentially same types but with different constraints if needed (things like min, max, type conversions (fromBoolean, fromString, fromInt, fromFloat, etc...)). Variable would have things like identifier, type_id, default_value, current_value.
+- To create mechanism where we would notify subscribers, we could use Observable pattern where Subscriber could subscribe on some variable and then in the setter method of the current_value we could call event which would notify subscribers that some value has been changed and with defining delegate method (event would be of this type) we define which parameter it can take which would be then provided for subscribers (things like identifier, old value, new value, etc) 
