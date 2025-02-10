@@ -8,7 +8,7 @@ namespace Core.Models
 {
     public class TypeDefinition
     {
-        public int? Id { get; init; }
+        public int Id { get; init; }
         public string Name { get; init; } = string.Empty;
     }
 }
