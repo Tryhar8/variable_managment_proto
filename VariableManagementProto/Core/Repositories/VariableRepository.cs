@@ -29,6 +29,8 @@ namespace Core.Repositories
         public async Task<Variable?> GetByIdAsync(int id) =>
             await _context.Variables.Include(v => v.Type).FirstOrDefaultAsync(v => v.Id == id);
 
+        public async Task<Variable?> GetByIdentifier(string identifier) => await _context.Variables.FirstOrDefaultAsync(v => v.Identifier == identifier);
+
         public async Task UpdateAsync(Variable variable)
         {
             _context.Variables.Update(variable);
