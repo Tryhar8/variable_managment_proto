@@ -23,7 +23,7 @@ namespace Core.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<TypeDefinition> GetByIdAsync(int id)
+        public async Task<TypeDefinition?> GetByIdAsync(int id)
         {
             return await _context.Types.FirstOrDefaultAsync(t => t.Id == id);
         }

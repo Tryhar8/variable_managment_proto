@@ -23,7 +23,7 @@ namespace Core.ExtensionMethods
             return typeName switch
             {
                 "string" => variable.CurrentValue,
-                "boolean" => bool.TryParse(value, out bool boolResult) ? boolResult
+                "bool" => bool.TryParse(value, out bool boolResult) ? boolResult
                           : throw new FormatException($"Cannot convert '{value}' to Boolean."),
                 "integer" => int.TryParse(value, out int intResult) ? intResult
                           : throw new FormatException($"Cannot convert '{value}' to Integer."),
