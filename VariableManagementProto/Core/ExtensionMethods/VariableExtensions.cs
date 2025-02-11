@@ -18,6 +18,8 @@ namespace Core.ExtensionMethods
             
             ArgumentNullException.ThrowIfNull(typeName);
 
+            // @todo: this implementation works just for CurrentValue but what is with default value. This has to be taken in consideration. When do we fallback to default value?
+            // Do we fallback just in case if current value is null?
             string value = variable.CurrentValue;
 
             return typeName switch
@@ -25,7 +27,7 @@ namespace Core.ExtensionMethods
                 "string" => variable.CurrentValue,
                 "bool" => bool.TryParse(value, out bool boolResult) ? boolResult
                           : throw new FormatException($"Cannot convert '{value}' to Boolean."),
-                "integer" => int.TryParse(value, out int intResult) ? intResult
+                "int" => int.TryParse(value, out int intResult) ? intResult
                           : throw new FormatException($"Cannot convert '{value}' to Integer."),
                 "float" => float.TryParse(value, out float floatResult) ? floatResult
                               : throw new FormatException($"Cannot convert '{value}' to Float."),
