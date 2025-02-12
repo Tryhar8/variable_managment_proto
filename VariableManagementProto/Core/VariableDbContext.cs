@@ -9,8 +9,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Core
 {
-    public class VariableDbContext(DbContextOptions<VariableDbContext> options) : DbContext(options)
+    public class VariableDbContext : DbContext
     {
+        public VariableDbContext() { }
+
+        // Your existing constructor
+        public VariableDbContext(DbContextOptions<VariableDbContext> options) : base(options) { }
         public DbSet<Variable> Variables { get; set; }
         public DbSet<Models.TypeDefinition> Types { get; set; }
 
@@ -22,6 +26,15 @@ namespace Core
                                            .WithMany()
                                            .HasForeignKey(v => v.TypeId)
                                            .OnDelete(DeleteBehavior.Restrict);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                // Configure SQLite here for migrations
+                optionsBuilder.UseSqlite("Data Source=../../db/test.db");
+            }
         }
     }
 }
