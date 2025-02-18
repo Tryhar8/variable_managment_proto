@@ -16,7 +16,6 @@ namespace Core.Repositories
         {
             try
             {
-                //if(GetByIdentifier(variable.Identifier) is not null) throw new ArgumentException($"{variable.Identifier} already exists.");
                 _context.Variables.Add(variable);
                 await _context.SaveChangesAsync();
             }

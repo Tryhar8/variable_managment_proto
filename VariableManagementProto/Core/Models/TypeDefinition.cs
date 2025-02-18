@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Core.Models
 {
-    public class TypeDefinition
+    public class TypeDefinition(int id, string name)
     {
-        public int Id { get; init; }
-        public string Name { get; init; } = string.Empty;
+        public int Id { get; init; } = id;
+        public string Name { get; init; } = name;
     }
 }

@@ -9,7 +9,8 @@ namespace Core.ExtensionMethods
 {
     public static class VariableExtensions
     {
-        public static object ConvertTo(this Variable variable)
+        // @todo Semir: What I even wanted with this approach? I am not really sure what was intention with this when I wanted to implement this.
+        public static object Convert(this Variable variable)
         {
             ArgumentNullException.ThrowIfNull(variable);
             ArgumentNullException.ThrowIfNull(variable.Type);

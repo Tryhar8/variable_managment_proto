@@ -11,12 +11,20 @@ namespace Core
 {
     public class VariableDbContext : DbContext
     {
-        public VariableDbContext() { }
+        string _connString;
+        public VariableDbContext() {  }
 
-        // Your existing constructor
-        public VariableDbContext(DbContextOptions<VariableDbContext> options) : base(options) { }
+        public VariableDbContext(DbContextOptions<VariableDbContext> options, string connString) : base(options) 
+        {
+            _connString = connString ?? throw new ArgumentNullException(nameof(connString));
+        }
         public DbSet<Variable> Variables { get; set; }
         public DbSet<Models.TypeDefinition> Types { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite(_connString);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,16 +33,12 @@ namespace Core
             modelBuilder.Entity<Variable>().HasOne(v => v.Type)
                                            .WithMany()
                                            .HasForeignKey(v => v.TypeId)
+                                           .IsRequired()
                                            .OnDelete(DeleteBehavior.Restrict);
-        }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                // Configure SQLite here for migrations
-                optionsBuilder.UseSqlite("Data Source=../../db/test.db");
-            }
+            modelBuilder.Entity<Variable>()
+            .HasIndex(v => v.Identifier)
+            .IsUnique();
         }
     }
 }
